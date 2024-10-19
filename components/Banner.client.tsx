@@ -1,10 +1,16 @@
 "use client";
-import React from "react";
+import React, { MouseEventHandler } from "react";
+import LeafScene from "./LeafScene.client";
 
-const Banner = () => {
-  const handleClick = () => {};
+const Banner = ({
+  handleOnClick,
+  buttonText,
+}: {
+  handleOnClick: MouseEventHandler<HTMLButtonElement> | undefined;
+  buttonText: string;
+}) => {
   return (
-    <div className="relative mb-12 grid lg:mb-24 lg-grid-cols-2">
+    <div className="relative mb-12 grid lg:mb-24 lg-grid-cols-2 border-2 border-solid border-blue-500 w-full">
       <div className="z-20 flex flex-col px-2 md:pt-12">
         <h1 className="my2 flex-wrap">
           <span className="pr-2 text-white">Leaf</span>
@@ -15,8 +21,9 @@ const Banner = () => {
         </p>
       </div>
       <div className="mt-12">
-        <button onClick={handleClick}>Click Me</button>
+        <button onClick={handleOnClick}>{buttonText}</button>
       </div>
+      <LeafScene />
     </div>
   );
 };

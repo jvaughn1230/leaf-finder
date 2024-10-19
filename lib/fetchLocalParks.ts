@@ -13,14 +13,16 @@ const transformLocalParkData = (
   };
 };
 
-export const fetchLocalParks = async () => {
+export const fetchLocalParks = async (longLat: string, limit: number) => {
+  console.log("fetch started");
+  console.log("fetch longLat", longLat);
   try {
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/park%20leisure.json?limit=6&proximity=-115.139832%2C36.169941&access_token=${process.env.MAPBOX_API_KEY}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/park%20leisure.json?limit=${limit}&proximity=${longLat}&access_token=${process.env.MAPBOX_API_KEY}`
     );
     const data = await response.json();
     const photos = await getListOfParkPhotos();
-    const parks = data.features.map((result: MapboxType, idx: number) => {
+    const parks = data?.features.map((result: MapboxType, idx: number) => {
       return transformLocalParkData(idx, result, photos);
     });
     return parks;
@@ -50,7 +52,7 @@ export const fetchLocalPark = async (id: string) => {
 const getListOfParkPhotos = async () => {
   try {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query="park"&page=1&perPage=10&content_filter=high&orientation=landscape`
+      `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query="green park"&page=1&perPage=10&content_filter=high&orientation=landscape`
     );
     const photos = await response.json();
     const results = photos?.results || [];

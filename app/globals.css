@@ -67,3 +67,40 @@
     @apply bg-gray-950;
   }
 }
+
+/* leaf animation */
+.falling-leaves {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  transform: translate(-50%, 0);
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.leaf-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  transform-style: preserve-3d;
+}
+
+.leaf-scene div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/leaf.svg")
+    no-repeat;
+  background-size: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
