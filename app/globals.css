@@ -104,3 +104,13 @@
   transform-style: preserve-3d;
   backface-visibility: visible;
 }
+
+/* NPS Scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
