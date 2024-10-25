@@ -5,14 +5,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "@/components/Card.client";
 import { NPSParkType } from "@/types/types";
 
-const NPSParks = () => {
+const NPSParks = ({ state }: { state: string }) => {
   const [parks, setParks] = useState<NPSParkType[]>([]);
 
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [initialLoading, setInitialLoading] = useState(false);
-
-  const state = "ca";
 
   useEffect(() => {
     async function fetchNPSParks() {
@@ -36,7 +34,7 @@ const NPSParks = () => {
     }
 
     fetchNPSParks();
-  }, [page]);
+  }, [page, state]);
 
   const fetchMoreParks = () => {
     setPage((prevPage) => prevPage + 1);
@@ -57,14 +55,12 @@ const NPSParks = () => {
         >
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6">
             {parks.map((park) => (
-              <div key={park.id}>
-                <Card
-                  key={park.id}
-                  name={park.fullName}
-                  imgUrl={park.images[0].url}
-                  href={`/parks/${park.id}`}
-                />
-              </div>
+              <Card
+                key={park.parkCode}
+                name={park.fullName}
+                imgUrl={park.images[0].url}
+                href={`/nps/${state}/${park.parkCode}`}
+              />
             ))}
           </div>
         </InfiniteScroll>

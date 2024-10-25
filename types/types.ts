@@ -6,12 +6,12 @@ export type ImageType = {
   url: string;
 };
 
-export type ParkType = {
-  id: string;
+export type NPSParkType = {
   fullName: string;
   description: string;
   images: ImageType[];
   latLong: string;
+  parkCode: string;
 };
 
 export type CardType = {
@@ -33,4 +33,8 @@ export type LocalParkType = {
   name: string;
   address: string;
   imgUrl: string;
+};
+
+export type PositionType = {
+  coords: { latitude: number; longitude: number };
 };

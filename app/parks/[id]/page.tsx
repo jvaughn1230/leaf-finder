@@ -1,19 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { fetchLocalPark, fetchLocalParks } from "@/lib/fetchLocalParks";
+import { fetchLocalPark } from "@/lib/fetchLocalParks";
 import Image from "next/image";
-import { LocalParkType } from "@/types/types";
+// import { LocalParkType } from "@/types/types";
 
 async function getParkData(id: string) {
   return await fetchLocalPark(id);
-}
-
-export async function generateStaticParams() {
-  const parks = await fetchLocalParks();
-
-  return parks.map((park: LocalParkType) => ({
-    id: park.id,
-  }));
 }
 
 export default async function Page(props: { params: { id: string } }) {
@@ -57,7 +49,6 @@ export default async function Page(props: { params: { id: string } }) {
               <p className="pl-2">{address}</p>
             </div>
           )}
-          {/* upvote here */}
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const state = searchParams.get("state") || "";
-    const limit = parseInt(searchParams.get("limit") || "");
-    const page = parseInt(searchParams.get("page") || "");
+    const limit = parseInt(searchParams.get("limit") || "9", 10); // Default limit to 9
+    const page = parseInt(searchParams.get("page") || "1", 10); // Default page to 1
 
     // convert page number to start number
     const start = (page - 1) * 9;
