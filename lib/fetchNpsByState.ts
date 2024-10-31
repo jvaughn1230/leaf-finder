@@ -7,6 +7,13 @@ const transformParkData = (park: NPSParkType) => {
     images: park.images,
     latLong: park.latLong,
     parkCode: park.parkCode,
+    designation: park.designation,
+    weatherInfo: park.weatherInfo,
+    email: park.contacts?.emailAddresses[0]?.emailAddress ?? "",
+    phone: park.contacts?.phoneNumbers[0]?.phoneNumber ?? "",
+    direcionsUrl: park.directionsUrl,
+    directionsInfo: park.directionsInfo,
+    url: park.url,
   };
 };
 
@@ -26,6 +33,9 @@ export const fetchNPSByState = async (state: string, limit = 9, start = 0) => {
 };
 
 export const fetchNPSPark = async (parkCode: string) => {
+  console.log(
+    `https://developer.nps.gov/api/v1/parks?parkCode=${parkCode}&api_key=${process.env.NPS_API_KEY}`
+  );
   try {
     const response = await fetch(
       `https://developer.nps.gov/api/v1/parks?parkCode=${parkCode}&api_key=${process.env.NPS_API_KEY}`

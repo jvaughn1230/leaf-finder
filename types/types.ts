@@ -6,12 +6,37 @@ export type ImageType = {
   url: string;
 };
 
+export type TransformedNPSParkType = {
+  fullName: string;
+  description: string;
+  images: ImageType[];
+  latLong: string;
+  parkCode: string;
+  designation: string;
+  weatherInfo: string;
+  directionsUrl: string;
+  directionsInfo: string;
+  url: string;
+  email: string;
+  phone: string;
+};
+
 export type NPSParkType = {
   fullName: string;
   description: string;
   images: ImageType[];
   latLong: string;
   parkCode: string;
+  designation: string;
+  weatherInfo: string;
+  directions: string;
+  contacts?: {
+    phoneNumbers: { phoneNumber: string }[];
+    emailAddresses: { emailAddress: string }[];
+  };
+  directionsUrl: string;
+  directionsInfo: string;
+  url: string;
 };
 
 export type CardType = {

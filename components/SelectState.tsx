@@ -19,7 +19,9 @@ const SelectState = () => {
   };
 
   const stateSelect = (state: StateType) => (
-    <option value={`/nps/${state.abbreviation}`}>{state.name}</option>
+    <option value={`/nps/${state.abbreviation}`} key={state.abbreviation}>
+      {state.name}
+    </option>
   );
 
   return (

@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { CardType } from "@/types/types";
 
+// Card component for the parks both NPS and local
+
 const Card = ({ name, imgUrl, href }: CardType) => {
   return (
     <Link
