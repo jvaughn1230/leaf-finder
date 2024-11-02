@@ -1,6 +1,10 @@
 import { NPSParkType } from "@/types/types";
 
 const transformParkData = (park: NPSParkType) => {
+  const formatPhoneNumber = (phone: string) => {
+    return phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+  };
+
   return {
     fullName: park.fullName,
     description: park.description,
@@ -10,10 +14,13 @@ const transformParkData = (park: NPSParkType) => {
     designation: park.designation,
     weatherInfo: park.weatherInfo,
     email: park.contacts?.emailAddresses[0]?.emailAddress ?? "",
-    phone: park.contacts?.phoneNumbers[0]?.phoneNumber ?? "",
+    phone: park.contacts?.phoneNumbers[0]?.phoneNumber
+      ? formatPhoneNumber(park.contacts.phoneNumbers[0].phoneNumber)
+      : "",
     direcionsUrl: park.directionsUrl,
     directionsInfo: park.directionsInfo,
     url: park.url,
+    address: `${park?.addresses[0].city}, ${park?.addresses[0].stateCode}`,
   };
 };
 
@@ -33,9 +40,6 @@ export const fetchNPSByState = async (state: string, limit = 9, start = 0) => {
 };
 
 export const fetchNPSPark = async (parkCode: string) => {
-  console.log(
-    `https://developer.nps.gov/api/v1/parks?parkCode=${parkCode}&api_key=${process.env.NPS_API_KEY}`
-  );
   try {
     const response = await fetch(
       `https://developer.nps.gov/api/v1/parks?parkCode=${parkCode}&api_key=${process.env.NPS_API_KEY}`

@@ -30,7 +30,6 @@ export async function generateStaticParams() {
 const NPSParkPage = ({ params }: parksPageProps) => {
   return (
     <div>
-      {params.parkCode} in state {params.state}
       <NPSPark parkCode={params.parkCode} />
     </div>
   );

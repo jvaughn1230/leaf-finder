@@ -43,16 +43,16 @@
     margin: 0;
   }
   button {
-    @apply w-fit cursor-pointer rounded-lg border-0 bg-purple-951 px-6 py-4 text-lg text-white hover:bg-violet-900;
+    @apply w-fit cursor-pointer rounded-lg border-0  px-6 py-4 text-lg text-white;
   }
 
-  button:focus {
+  /* button:focus {
     @apply outline-dotted outline-1;
-  }
-
+  } */
+  /* 
   p {
     @apply m-0 text-2xl font-bold md:text-3xl;
-  }
+  } */
 }
 
 @layer components {
@@ -64,6 +64,14 @@
 
   .glass:hover {
     @apply bg-gray-950;
+  }
+
+  .header {
+    @apply text-5xl font-bold my-2;
+  }
+
+  .subheader {
+    @apply text-xl lg:text-2xl font-semibold;
   }
 }
 

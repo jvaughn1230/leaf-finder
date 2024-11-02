@@ -19,6 +19,7 @@ export type TransformedNPSParkType = {
   url: string;
   email: string;
   phone: string;
+  address: string;
 };
 
 export type NPSParkType = {
@@ -37,6 +38,10 @@ export type NPSParkType = {
   directionsUrl: string;
   directionsInfo: string;
   url: string;
+  addresses: {
+    city: string;
+    stateCode: string;
+  }[];
 };
 
 export type CardType = {
