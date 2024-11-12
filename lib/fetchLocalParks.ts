@@ -6,9 +6,9 @@ const transformLocalParkData = (
   photos: string[]
 ) => {
   return {
-    id: result.id,
-    name: result.text,
-    address: result.properties.address,
+    id: result.properties.mapbox_id,
+    name: result.properties.name,
+    address: result.properties.full_address,
     imgUrl: photos.length > 0 ? photos[idx] : "",
   };
 };
@@ -20,7 +20,6 @@ export const fetchLocalParks = async (longLat: string, limit: number) => {
     );
 
     const data = await response.json();
-    console.log(data.features[0].properties);
     const photos = await getListOfParkPhotos();
     const parks = data?.features.map((result: MapboxType, idx: number) => {
       return transformLocalParkData(idx, result, photos);
@@ -34,7 +33,7 @@ export const fetchLocalParks = async (longLat: string, limit: number) => {
 export const fetchLocalPark = async (id: string) => {
   try {
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${id}.json?limit=1&proximity=ip&access_token=${process.env.MAPBOX_API_KEY}`
+      `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?session_token=1&access_token=${process.env.MAPBOX_API_KEY}`
     );
     const data = await response.json();
     const photos = await getListOfParkPhotos();
