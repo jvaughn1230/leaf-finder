@@ -41,7 +41,6 @@ const NPSParks = ({ state }: { state: string }) => {
   };
   return (
     <div>
-      <h1>NPS Parks</h1>
       {initialLoading ? (
         <h4>Loading...</h4>
       ) : (
