@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     // create user
     const user = await User.create({ ...body, password: hashedPassword });
 
-    const token = generateToken(user._userId.toString());
+    const token = generateToken(user._id.toString());
 
     const response = NextResponse.json(
       {
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
 
-    response.cookies.set("token", token, {
+    response.cookies.set("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",

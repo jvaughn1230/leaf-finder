@@ -59,6 +59,7 @@ const NPSParks = ({ state }: { state: string }) => {
                 name={park.fullName}
                 imgUrl={park.images[0].url}
                 href={`/nps/${state}/${park.parkCode}`}
+                parkId={park.parkCode}
               />
             ))}
           </div>

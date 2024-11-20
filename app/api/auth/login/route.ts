@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       { success: true, data: { id: user._id, email: user.email } },
       { status: 200 }
     );
-    response.cookies.set("token", token, {
+    response.cookies.set("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",

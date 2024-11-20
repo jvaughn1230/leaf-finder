@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { TransformedNPSParkType } from "@/types/types";
 import NPSParkDetailsCard from "./NPSParkDetailsCard";
-// import Carousel from "@/components/Carousel.client";
 import EmblaCarousel from "@/components/carousel/EmblaCarousel";
+import AddToFavorites from "./AddToFavorites";
 
 const NPSPark = ({ parkCode }: { parkCode: string }) => {
   const [park, setPark] = useState<TransformedNPSParkType>();
@@ -64,6 +64,7 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
       >
         <h2 className="header text-white">{park?.fullName}</h2>
         <h3 className="subheader text-white">{park?.designation}</h3>
+        <AddToFavorites type="nps" parkId={parkCode} />
       </div>
 
       {/* Park Info */}

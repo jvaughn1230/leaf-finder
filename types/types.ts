@@ -45,16 +45,17 @@ export type NPSParkType = {
 };
 
 export type CardType = {
+  parkId: string;
   name: string;
   imgUrl: string;
   href: string;
 };
 
 export type MapboxType = {
-  id: string;
-  text: string;
   properties: {
-    address: string;
+    mapbox_id: string;
+    name: string;
+    full_address: string;
   };
 };
 

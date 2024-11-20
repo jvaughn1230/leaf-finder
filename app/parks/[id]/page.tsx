@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { fetchLocalPark } from "@/lib/fetchLocalParks";
 import Image from "next/image";
-// import { LocalParkType } from "@/types/types";
+import AddToFavorites from "@/components/AddToFavorites";
 
 async function getParkData(id: string) {
   return await fetchLocalPark(id);
@@ -47,6 +47,7 @@ export default async function Page(props: { params: { id: string } }) {
                 alt="places icon"
               />
               <p className="pl-2">{address}</p>
+              <AddToFavorites parkId={id} type="local" />
             </div>
           )}
         </div>
