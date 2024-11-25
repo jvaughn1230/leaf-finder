@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "@/components/Card.client";
-import { NPSParkType } from "@/types/types";
+import { NPSParkType } from "@/types/parkTypes";
 
 const NPSParks = ({ state }: { state: string }) => {
   const [parks, setParks] = useState<NPSParkType[]>([]);
@@ -39,6 +39,7 @@ const NPSParks = ({ state }: { state: string }) => {
   const fetchMoreParks = () => {
     setPage((prevPage) => prevPage + 1);
   };
+
   return (
     <div>
       {initialLoading ? (
@@ -52,13 +53,13 @@ const NPSParks = ({ state }: { state: string }) => {
           endMessage={<p>No more parks to show</p>}
           className="scrollbar-hide"
         >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6">
+          <div className="card-container">
             {parks.map((park) => (
               <Card
                 key={park.parkCode}
                 name={park.fullName}
                 imgUrl={park.images[0].url}
-                href={`/nps/${state}/${park.parkCode}`}
+                href={`/nps/park/${park.parkCode}`}
                 parkId={park.parkCode}
               />
             ))}

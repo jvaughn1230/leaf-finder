@@ -3,10 +3,13 @@ import SelectState from "@/components/SelectState";
 
 const Page = () => {
   return (
-    <div className="mb-56">
-      <main className="mx-auto mt-10 max-w-6xl px-4">
-        <SelectState />
-      </main>
+    <div className="h-screen flex items-center justify-center bg-npsBg bg-cover">
+      <div>
+        <h1>Explore National Parks Near You</h1>
+        <div className="flex justify-center mt-4">
+          <SelectState />
+        </div>
+      </div>
     </div>
   );
 };

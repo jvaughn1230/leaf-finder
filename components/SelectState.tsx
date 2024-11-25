@@ -25,7 +25,11 @@ const SelectState = () => {
   );
 
   return (
-    <select onChange={handleSelectChange} defaultValue="">
+    <select
+      onChange={handleSelectChange}
+      defaultValue=""
+      className="w-96 py-2 px-3"
+    >
       <option value="">--Select State--</option>
       {stateArray.map(stateSelect)}
     </select>

@@ -20,8 +20,8 @@ async function NPSStatePage({ params }: StateParksPageProps) {
   const stateName = stateInfo ? stateInfo.name : "Unknown State";
 
   return (
-    <div>
-      <h2>{stateName} National Parks</h2>
+    <div className="page">
+      <h1 className="my-16 page-header">{stateName} National Parks</h1>
       <NPSParks state={params.state} />
     </div>
   );

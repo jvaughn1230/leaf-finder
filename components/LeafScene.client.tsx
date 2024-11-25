@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+// Leaf scene component for the home page banner
+
 interface Leaf {
   el: HTMLDivElement;
   x: number;

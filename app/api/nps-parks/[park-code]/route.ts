@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchNPSPark } from "@/lib/NPSParks";
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const parkCode = searchParams.get("parkCode") || "";
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { parkCode: string } }
+) {
+  const { parkCode } = params;
 
   try {
     if (parkCode) {

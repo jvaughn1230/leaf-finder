@@ -1,6 +1,6 @@
 import React from "react";
 import { stateArray } from "@/lib/states";
-import { fetchNPSByState } from "@/lib/fetchNpsByState";
+import { fetchNPSByState } from "@/lib/NPSParks";
 import NPSPark from "@/components/NPSPark";
 
 type parksPageProps = {

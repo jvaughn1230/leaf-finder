@@ -42,7 +42,7 @@ const LoginForm = () => {
       router.push("/account");
     } catch (error) {
       console.error(error);
-      setMessage("Failed to create user");
+      setMessage("Login Failed");
     } finally {
       setLoading(false);
     }

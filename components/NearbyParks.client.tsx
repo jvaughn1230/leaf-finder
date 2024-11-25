@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Card from "./Card.client";
-import { LocalParkType } from "@/types/types";
+import { LocalParkType } from "@/types/parkTypes";
 import useLocation from "@/hooks/useLocation";
 import Banner from "./Banner.client";
 
@@ -10,6 +10,7 @@ const NearbyParks = () => {
     useLocation();
 
   const [parks, setParks] = useState<LocalParkType[]>([]);
+
   const handleClick = () => {
     handleTrackLocation();
   };
@@ -20,7 +21,7 @@ const NearbyParks = () => {
         try {
           const limit = 6;
           const response = await fetch(
-            `/api/getParksByLocation?longLat=${longLat}&limit=${limit}`
+            `/api/local-parks?longLat=${longLat}&limit=${limit}`
           );
           const parks = await response.json();
           setParks(parks);
@@ -37,7 +38,7 @@ const NearbyParks = () => {
     <div>
       <Banner
         handleOnClick={handleClick}
-        buttonText={isFindingLocation ? "Locating..." : "View stores nearby"}
+        buttonText={isFindingLocation ? "Locating..." : "View parks nearby"}
       />
       {locationErrorMsg && <p>Error: {locationErrorMsg}</p>}
 
@@ -46,13 +47,14 @@ const NearbyParks = () => {
           <h2 className="mt-8 pb-8 text-4xl font-bold text-white">
             Stores near me
           </h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6">
+          <div className="card-container">
             {parks.map((park: LocalParkType) => (
               <Card
                 key={`${park.id}`}
                 name={park.name}
                 imgUrl={park.imgUrl}
                 href={`/parks/${park.id}`}
+                parkId={park.id}
               />
             ))}
           </div>

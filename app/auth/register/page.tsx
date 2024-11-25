@@ -64,7 +64,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="page">
       <form onSubmit={handleSubmit}>
         <div>
           <label

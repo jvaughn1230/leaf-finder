@@ -1,4 +1,6 @@
-import { NPSParkType } from "@/types/types";
+import { NPSParkType } from "@/types/parkTypes";
+
+// TODOD: Check address/addresses below
 
 const transformParkData = (park: NPSParkType) => {
   const formatPhoneNumber = (phone: string) => {
@@ -20,7 +22,7 @@ const transformParkData = (park: NPSParkType) => {
     direcionsUrl: park.directionsUrl,
     directionsInfo: park.directionsInfo,
     url: park.url,
-    address: `${park?.addresses[0].city}, ${park?.addresses[0].stateCode}`,
+    // address: `${park?.addresses[0].city}, ${park?.addresses[0].stateCode}`,
   };
 };
 

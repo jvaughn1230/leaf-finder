@@ -1,4 +1,4 @@
-import { fetchLocalParks } from "@/lib/fetchLocalParks";
+import { fetchLocalParks } from "@/lib/localParks";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

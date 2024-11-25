@@ -2,6 +2,8 @@
 import React, { MouseEventHandler } from "react";
 import LeafScene from "./LeafScene.client";
 
+// Banner component for the home page
+
 const Banner = ({
   handleOnClick,
   buttonText,
@@ -12,11 +14,11 @@ const Banner = ({
   return (
     <div className="relative mb-12 grid lg:mb-24 lg-grid-cols-2 border-2 border-solid border-blue-500 w-full">
       <div className="z-20 flex flex-col px-2 md:pt-12">
-        <h1 className="my2 flex-wrap">
+        <h1 className="my2 flex-wrap home-header">
           <span className="pr-2 text-white">Leaf</span>
           <span className="text-gray-900">Finder</span>
         </h1>
-        <p className="font-sans text-xl font-semibold text-gray-900 md:mt-6 lg:text-2xl">
+        <p className="font-sans text-gray-900 md:mt-6 sub-header">
           Find Parks Near you
         </p>
       </div>

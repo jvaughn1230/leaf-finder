@@ -11,7 +11,7 @@ const Card = ({ name, imgUrl, href }: CardType) => {
       href={href}
       className="m-auto rounded-xl border-gray-400 shadow-2xl overflow-hidden"
     >
-      <div className="glass min-h-[200px] rounded-xl px-5 pb-5 pt-1 backdrop-blur-3xl">
+      <div className="glass min-h-[200px] rounded-xl px-5 pb-5 pt-1 backdrop-blur-3xl mx-auto">
         <div className="my-3">
           <h2 className="w-64 text-ellipsis whitespace-nowrap text-xl font-bold overflow-clip">
             {name}

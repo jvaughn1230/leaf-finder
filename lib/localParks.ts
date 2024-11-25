@@ -37,11 +37,9 @@ export const fetchLocalPark = async (id: string) => {
     );
     const data = await response.json();
     const photos = await getListOfParkPhotos();
-    const transformedData = data.features.map(
-      (result: MapboxType, idx: number) => {
-        return transformLocalParkData(idx, result, photos);
-      }
-    );
+
+    const transformedData = transformLocalParkData(0, data.features[0], photos);
+
     return transformedData;
   } catch (error) {
     console.error("Error fetching park: ", error);
@@ -55,7 +53,9 @@ const getListOfParkPhotos = async () => {
     );
     const photos = await response.json();
     const results = photos?.results || [];
-    return results?.map((result: { urls: string[] }) => result.urls["small"]);
+    return results?.map(
+      (result: { urls: { small: string[] } }) => result.urls["small"]
+    );
   } catch (error) {
     console.error("Error retrieving a photo", error);
   }

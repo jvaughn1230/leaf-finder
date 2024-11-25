@@ -1,10 +1,14 @@
 import { fetchNPSByState } from "@/lib/NPSParks";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { state: string } }
+) {
+  const { state } = params;
+
   try {
     const searchParams = request.nextUrl.searchParams;
-    const state = searchParams.get("state") || "";
     const limit = parseInt(searchParams.get("limit") || "9", 10); // Default limit to 9
     const page = parseInt(searchParams.get("page") || "1", 10); // Default page to 1
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { TransformedNPSParkType } from "@/types/types";
+import { TransformedNPSParkType } from "@/types/parkTypes";
 import NPSParkDetailsCard from "./NPSParkDetailsCard";
 import EmblaCarousel from "@/components/carousel/EmblaCarousel";
 import AddToFavorites from "./AddToFavorites";
@@ -62,8 +62,8 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
           backgroundImage: `url(${park?.images[0].url})`,
         }}
       >
-        <h2 className="header text-white">{park?.fullName}</h2>
-        <h3 className="subheader text-white">{park?.designation}</h3>
+        <h2 className="page-header text-white">{park?.fullName}</h2>
+        <h3 className="sub-header text-white">{park?.designation}</h3>
         <AddToFavorites type="nps" parkId={parkCode} />
       </div>
 
@@ -88,12 +88,12 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
         <div className=" mx-auto space-y-12 max-w-6xl">
           <div className="flex flex-col lg:flex-row mb-5">
             <div className="lg:w-1/4 lg:pr-4 ">
-              <h1 className="  relative text-4xl font-bold   text-green-800  before:ml-[-4rem] before:mt-5 before:w-[60px] before:absolute before:h-[2px] before:bg-white  before:left-[-1rem]">
+              <h1 className="  relative  text-4xl font-bold   text-green-800 before:ml-[-4rem] before:mt-5 before:w-[60px] before:absolute before:h-[2px] before:bg-white  before:left-[-1rem]">
                 Overview
               </h1>
             </div>
             <div className="lg:w-3/4">
-              <p className="text-gray-600 font-bold">{park?.description}</p>
+              <p className="text-white font-bold">{park?.description}</p>
             </div>
           </div>
 
@@ -104,7 +104,7 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
               </h1>
             </div>
             <div className="lg:w-3/4">
-              <p className="text-gray-600 font-bold">{park?.weatherInfo}</p>
+              <p className="text-white font-bold">{park?.weatherInfo}</p>
             </div>
           </div>
         </div>
