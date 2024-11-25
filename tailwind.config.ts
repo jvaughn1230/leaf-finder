@@ -10,6 +10,8 @@ const config: Config = {
     extend: {
       backgroundImage: {
         mesh: "url('/static/background2.png')",
+        npsBg:
+          "url('https://www.nps.gov/npgallery/GetAsset/b0e6301f-f4bd-4604-b8a3-f2b9ed7a14ef/proxy/hires?')",
       },
       colors: {
         purple: {
