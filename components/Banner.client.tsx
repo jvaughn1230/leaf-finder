@@ -12,7 +12,7 @@ const Banner = ({
   buttonText: string;
 }) => {
   return (
-    <div className="relative mb-12 grid lg:mb-24 lg-grid-cols-2 border-2 border-solid border-blue-500 w-full">
+    <div className="relative mb-12 grid lg:mb-24 lg-grid-cols-2  w-full  rounded-xl  shadow-xl">
       <div className="z-20 flex flex-col px-2 md:pt-12">
         <h1 className="my2 flex-wrap home-header">
           <span className="pr-2 text-white">Leaf</span>

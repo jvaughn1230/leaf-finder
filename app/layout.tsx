@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import Nav from "@/components/Nav.client";
 import Footer from "@/components/Footer.client";
+import { SeasonProvider } from "./context/SeasonContext";
+import SeasonalGradient from "@/components/SeasonalGradient";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,11 +24,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${IBM_PLEX_SANS.className}  antialiased`}>
-        <Nav />
-        {children}
-        <Footer />
-      </body>
+      <SeasonProvider>
+        <body className={`${IBM_PLEX_SANS.className}  antialiased`}>
+          <SeasonalGradient>
+            <Nav />
+            {children}
+            <Footer />
+          </SeasonalGradient>
+        </body>
+      </SeasonProvider>
     </html>
   );
 }

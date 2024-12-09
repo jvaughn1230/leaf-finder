@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useSeason } from "@/app/context/SeasonContext";
 
 // Leaf scene component for the home page banner
 
@@ -21,6 +22,10 @@ interface Leaf {
 
 const FallingLeaves: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { season } = useSeason();
+  const currentSeasonImagePath = `/static/${season}.svg`;
+
+  console.log("Current Season Image Path:", currentSeasonImagePath);
 
   useEffect(() => {
     class LeafScene {
@@ -49,7 +54,7 @@ const FallingLeaves: React.FC = () => {
         this.height = el.offsetHeight;
       }
 
-      _resetLeaf(leaf: Leaf) {
+      _resetLeaf(leaf: Leaf, imagePath: string) {
         leaf.x = this.width * 2 - Math.random() * this.width * 1.75;
         leaf.y = -10;
         leaf.z = Math.random() * 200;
@@ -77,6 +82,10 @@ const FallingLeaves: React.FC = () => {
         leaf.xSpeedVariation = Math.random() * 0.8 - 0.4;
         leaf.ySpeed = Math.random() + 1.5;
 
+        // Image assignment
+        leaf.el.style.background = `url(${currentSeasonImagePath}) no-repeat`;
+        leaf.el.style.backgroundSize = "100%";
+
         return leaf;
       }
 
@@ -100,7 +109,7 @@ const FallingLeaves: React.FC = () => {
         leaf.el.style.transform = transform;
 
         if (leaf.x < -10 || leaf.y > this.height + 10) {
-          this._resetLeaf(leaf);
+          this._resetLeaf(leaf, currentSeasonImagePath);
         }
       }
 
@@ -134,7 +143,7 @@ const FallingLeaves: React.FC = () => {
         }
       }
 
-      init() {
+      init(imagePath: string) {
         for (let i = 0; i < this.options.numLeaves; i++) {
           const leaf: Leaf = {
             el: document.createElement("div"),
@@ -145,7 +154,7 @@ const FallingLeaves: React.FC = () => {
             xSpeedVariation: 0,
             ySpeed: 0,
           };
-          this._resetLeaf(leaf);
+          this._resetLeaf(leaf, currentSeasonImagePath);
           this.leaves.push(leaf);
           this.world.appendChild(leaf.el);
         }
@@ -170,10 +179,10 @@ const FallingLeaves: React.FC = () => {
 
     if (containerRef.current) {
       const leaves = new LeafScene(containerRef.current);
-      leaves.init();
+      leaves.init(currentSeasonImagePath);
       leaves.render();
     }
-  }, []);
+  }, [season, currentSeasonImagePath]);
 
   return <div ref={containerRef} className="falling-leaves absolute"></div>;
 };
