@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Card from "./Card.client";
+import Card from "../Card.client";
 import { LocalParkType } from "@/types/parkTypes";
 import useLocation from "@/hooks/useLocation";
 import Banner from "./Banner.client";
@@ -45,9 +45,9 @@ const NearbyParks = () => {
       {parks.length > 0 && (
         <div className="mt-20">
           <h2 className="mt-8 pb-8 text-4xl font-bold text-white">
-            Stores near me
+            Nearby Parks
           </h2>
-          <div className="card-container">
+          <div className="cards-container">
             {parks.map((park: LocalParkType) => (
               <Card
                 key={`${park.id}`}

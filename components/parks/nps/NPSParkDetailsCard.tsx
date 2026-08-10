@@ -1,8 +1,6 @@
-import React from "react";
-
 type Props = {
   name: string;
-  data: string;
+  data: string | string[];
   isButton: boolean;
 };
 
@@ -12,7 +10,7 @@ const NPSParkDetailsCard = (props: Props) => {
       {props.isButton ? (
         <div className="w-full h-full">
           <a
-            href={props.data}
+            href={props.data as string}
             target="_blank"
             className="block w-full h-full text-xl py-2 px-4 text-center bg-black text-white"
           >
@@ -26,6 +24,12 @@ const NPSParkDetailsCard = (props: Props) => {
             <a href={`mailto:${props.data}`} className="underline">
               {props.data}
             </a>
+          ) : Array.isArray(props.data) ? ( // Check if data is an array
+            props.data.map((line, index) => (
+              <p key={index} className="font-normal text-sm">
+                {line}
+              </p>
+            ))
           ) : (
             <p className="font-normal text-sm">{props.data}</p>
           )}

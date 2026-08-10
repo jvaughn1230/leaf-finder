@@ -1,8 +1,7 @@
-import React from "react";
 import Link from "next/link";
 import { fetchLocalPark } from "@/lib/localParks";
 import Image from "next/image";
-import AddToFavorites from "@/components/AddToFavorites";
+import AddToFavorites from "@/components/parks/AddToFavorites";
 
 async function getParkData(id: string) {
   return await fetchLocalPark(id);
@@ -27,7 +26,7 @@ export default async function Page(props: { params: { id: string } }) {
         <Link href="/"> &larr; Back to Home</Link>
       </div>
       <div>
-        <h1 className="sub-header">{name}</h1>
+        <h1 className="page-header mb-12 mt-4 px-12">{name}</h1>
       </div>
 
       <div className="m-auto flex flex-col max-w-full px-12 py-12lg:max-w-6xl lg:flex-row gap-4  lg:h-auto">
@@ -43,14 +42,10 @@ export default async function Page(props: { params: { id: string } }) {
 
         <div className="glass flex-1 flex-col rounded-lg p-4 lg:h-auto ">
           {address && (
-            <div className="mb-4 flex">
-              <Image
-                src="/static/icons/places.svg"
-                width="24"
-                height="24"
-                alt="places icon"
-              />
-              <p className="pl-2">{address}</p>
+            <div className="">
+              <p className="text-3xl font-semibold text-black max-w-[80%] mb-4">
+                {address}
+              </p>
               <AddToFavorites parkId={id} type="local" />
             </div>
           )}

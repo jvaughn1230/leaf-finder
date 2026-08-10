@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { stateArray } from "../lib/states";
+import { stateArray } from "@/lib/states";
 import { useRouter } from "next/navigation";
 
 type StateType = {

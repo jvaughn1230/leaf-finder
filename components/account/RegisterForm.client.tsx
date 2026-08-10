@@ -19,6 +19,7 @@ interface FormErrors {
  *
  * @returns {JSX.Element} - A registration form with name, email, and password fields.
  */
+
 const RegisterForm = () => {
   const contentType = "application/json";
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React from "react";
 import { stateArray } from "@/lib/states";
 import { fetchNPSByState } from "@/lib/NPSParks";
-import NPSPark from "@/components/NPSPark";
+import NPSPark from "@/components/parks/nps/NPSPark";
 
 type parksPageProps = {
   params: { state: string; parkCode: string };

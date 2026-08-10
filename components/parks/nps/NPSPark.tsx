@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TransformedNPSParkType } from "@/types/parkTypes";
 import NPSParkDetailsCard from "./NPSParkDetailsCard";
 import EmblaCarousel from "@/components/carousel/EmblaCarousel";
-import AddToFavorites from "./AddToFavorites";
+import AddToFavorites from "../AddToFavorites";
 
 const NPSPark = ({ parkCode }: { parkCode: string }) => {
   const [park, setPark] = useState<TransformedNPSParkType>();
@@ -57,13 +57,16 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
     <div>
       {/* header image */}
       <div
-        className={`flex flex-col gap-4 items-center justify-center h-[80vh]  bg-cover bg-center `}
+        className={`flex flex-col gap-4 items-center justify-center h-[80vh]  bg-cover bg-center`}
         style={{
           backgroundImage: `url(${park?.images[0].url})`,
         }}
       >
-        <h2 className="page-header text-white">{park?.fullName}</h2>
-        <h3 className="sub-header text-white">{park?.designation}</h3>
+        <div className="mb-2 bg-white p-2 rounded-md bg-opacity-50">
+          <h2 className="page-header text-black ">{park?.fullName}</h2>
+          <h3 className="sub-header text-black">{park?.designation}</h3>
+        </div>
+
         <AddToFavorites type="nps" parkId={parkCode} />
       </div>
 

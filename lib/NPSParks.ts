@@ -1,11 +1,13 @@
 import { NPSParkType } from "@/types/parkTypes";
 
-// TODOD: Check address/addresses below
-
 const transformParkData = (park: NPSParkType) => {
   const formatPhoneNumber = (phone: string) => {
     return phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
   };
+
+  const physicalAddress = park.addresses?.find(
+    (address) => address.type === "Physical"
+  );
 
   return {
     fullName: park.fullName,
@@ -22,7 +24,14 @@ const transformParkData = (park: NPSParkType) => {
     direcionsUrl: park.directionsUrl,
     directionsInfo: park.directionsInfo,
     url: park.url,
-    // address: `${park?.addresses[0].city}, ${park?.addresses[0].stateCode}`,
+    address: physicalAddress
+      ? [
+          physicalAddress.line1,
+          physicalAddress.line2,
+          physicalAddress.line3,
+          `${physicalAddress.city}, ${physicalAddress.stateCode} ${physicalAddress.postalCode}`,
+        ].filter(Boolean)
+      : ["No physical address available"],
   };
 };
 

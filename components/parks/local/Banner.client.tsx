@@ -1,6 +1,6 @@
 "use client";
-import React, { MouseEventHandler } from "react";
-import LeafScene from "./LeafScene.client";
+import { MouseEventHandler } from "react";
+import FallingLeaves from "./LeafScene.client";
 
 // Banner component for the home page
 
@@ -22,10 +22,10 @@ const Banner = ({
           Find Parks Near you
         </p>
       </div>
-      <div className="mt-12">
+      <div className="m-2 mt-6">
         <button onClick={handleOnClick}>{buttonText}</button>
       </div>
-      <LeafScene />
+      <FallingLeaves />
     </div>
   );
 };

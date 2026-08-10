@@ -11,7 +11,7 @@
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    @apply bg-gradient-to-r from-green-950 to-blue-950  bg-[50%]  h-full;
+    @apply bg-[50%]  h-full;
   }
 
   a {
@@ -41,17 +41,21 @@
   button {
     @apply w-fit cursor-pointer rounded-lg border-0  px-6 py-4 text-lg text-white;
   }
-
-  /* button:focus {
-    @apply outline-dotted outline-1;
-  } */
-  /* 
-  p {
-    @apply m-0 text-2xl font-bold md:text-3xl;
-  } */
 }
 
 @layer components {
+  button {
+    @apply px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition;
+  }
+
+  a {
+    @apply text-black hover:opacity-50 text-lg;
+  }
+
+  a:active {
+    @apply underline;
+  }
+
   .glass {
     @apply border border-solid border-[hsla(0,0%,100%,0.2)] bg-gray-951 backdrop-blur-[10px] hover:border hover:border-solid hover:border-white;
     -webkit-backdrop-filter: blur(10px);
@@ -66,7 +70,7 @@
     @apply mx-auto mt-10 max-w-6xl px-4 mb-56;
   }
 
-  .card-container {
+  .cards-container {
     @apply grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6;
   }
 
@@ -111,8 +115,6 @@
   left: 0;
   width: 20px;
   height: 20px;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/125707/leaf.svg")
-    no-repeat;
   background-size: 100%;
   transform-style: preserve-3d;
   backface-visibility: visible;
@@ -126,4 +128,53 @@
 scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+/* Seasons */
+.fall-gradient {
+  background-image: linear-gradient(
+    to right,
+    #b91c1c,
+    #f97316,
+    #fde047,
+    #f4a261
+  );
+  min-height: 100vh;
+  width: 100%;
+}
+
+.spring-gradient {
+  background-image: linear-gradient(
+    to right,
+    #22c55e,
+    #a7f3d0,
+    #ffedd5,
+    #ffb6c1
+  );
+  min-height: 100vh;
+  width: 100%;
+}
+
+.summer-gradient {
+  background-image: linear-gradient(
+    to right,
+    #22c55e,
+    #4ade80,
+    #facc15,
+    #ff8c00
+  );
+  min-height: 100vh;
+  width: 100%;
+}
+
+.winter-gradient {
+  background-image: linear-gradient(
+    to right,
+    #1e3a8a,
+    #60a5fa,
+    #e0f2fe,
+    #ffffff
+  );
+  min-height: 100vh;
+  width: 100%;
 }

@@ -9,11 +9,11 @@ import {
   usePrevNextButtons,
 } from "./EmblaCarouselArrowButtons";
 import useEmblaCarousel from "embla-carousel-react";
-import { ImageType } from "@/types/types";
+import { NPSImageType } from "@/types/parkTypes";
 import "./carousel.css";
 
 type PropType = {
-  images: ImageType[];
+  images: NPSImageType[];
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {

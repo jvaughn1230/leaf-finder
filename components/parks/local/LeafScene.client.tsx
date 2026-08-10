@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import { useSeason } from "@/app/context/SeasonContext";
 
-// Leaf scene component for the home page banner
-
 interface Leaf {
   el: HTMLDivElement;
   x: number;
@@ -25,8 +23,6 @@ const FallingLeaves: React.FC = () => {
   const { season } = useSeason();
   const currentSeasonImagePath = `/static/${season}.svg`;
 
-  console.log("Current Season Image Path:", currentSeasonImagePath);
-
   useEffect(() => {
     class LeafScene {
       viewport: HTMLDivElement;
@@ -35,15 +31,24 @@ const FallingLeaves: React.FC = () => {
       width: number;
       height: number;
       timer: number = 0;
-      options = {
+      animationFrameId: number | null = null;
+      options: {
+        numLeaves: number;
+        wind: {
+          magnitude: number;
+          maxSpeed: number;
+          duration: number;
+          start: number;
+          speed: (t: number, y: number) => number;
+        };
+      } = {
         numLeaves: 20,
         wind: {
           magnitude: 1.2,
           maxSpeed: 12,
           duration: 300,
           start: 0,
-
-          speed: (t: number, y: number) => 0,
+          speed: () => 0,
         },
       };
 
@@ -58,6 +63,7 @@ const FallingLeaves: React.FC = () => {
         leaf.x = this.width * 2 - Math.random() * this.width * 1.75;
         leaf.y = -10;
         leaf.z = Math.random() * 200;
+
         if (leaf.x > this.width) {
           leaf.x = this.width + 10;
           leaf.y = (Math.random() * this.height) / 2;
@@ -67,6 +73,7 @@ const FallingLeaves: React.FC = () => {
         }
 
         leaf.rotation.speed = Math.random() * 10;
+
         const randomAxis = Math.random();
         if (randomAxis > 0.5) {
           leaf.rotation.axis = "X";
@@ -82,8 +89,7 @@ const FallingLeaves: React.FC = () => {
         leaf.xSpeedVariation = Math.random() * 0.8 - 0.4;
         leaf.ySpeed = Math.random() + 1.5;
 
-        // Image assignment
-        leaf.el.style.background = `url(${currentSeasonImagePath}) no-repeat`;
+        leaf.el.style.background = `url(${imagePath}) no-repeat`;
         leaf.el.style.backgroundSize = "100%";
 
         return leaf;
@@ -99,13 +105,25 @@ const FallingLeaves: React.FC = () => {
         leaf.y += leaf.ySpeed;
         leaf.rotation.value += leaf.rotation.speed;
 
+        // Here
+
+        // leaf.el.style.transform = `
+        //   translateX(${leaf.x}px)
+        //   translateY(${leaf.y}px)
+        //   translateZ(${leaf.z}px)
+        //   rotate${leaf.rotation.axis}(${leaf.rotation.value}deg)
+        // `;
+
+        // if (leaf.x < -10 || leaf.y > this.height + 10) {
+        //   this._resetLeaf(leaf, currentSeasonImagePath);
+        // }
         const transform = `
-          translateX(${leaf.x}px)
-          translateY(${leaf.y}px)
-          translateZ(${leaf.z}px)
-          rotate${leaf.rotation.axis}(${leaf.rotation.value}deg)
-          ${leaf.rotation.axis !== "X" ? `rotateX(${leaf.rotation.x}deg)` : ""}
-        `;
+        translateX(${leaf.x}px)
+        translateY(${leaf.y}px)
+        translateZ(${leaf.z}px)
+        rotate${leaf.rotation.axis}(${leaf.rotation.value}deg)
+        ${leaf.rotation.axis !== "X" ? `rotateX(${leaf.rotation.x}deg)` : ""}
+      `;
         leaf.el.style.transform = transform;
 
         if (leaf.x < -10 || leaf.y > this.height + 10) {
@@ -123,8 +141,12 @@ const FallingLeaves: React.FC = () => {
           this.options.wind.duration =
             this.options.wind.magnitude * 50 + (Math.random() * 20 - 10);
           this.options.wind.start = this.timer;
+
+          // Below Line
           const screenHeight = this.height;
 
+          // this.options.wind.speed = (t: number, y: number) =>
+          //   (this.options.wind.magnitude / 2) * Math.sin(t + y);
           this.options.wind.speed = (t: number, y: number) => {
             // Ensure both t and y are used
             const a =
@@ -144,6 +166,11 @@ const FallingLeaves: React.FC = () => {
       }
 
       init(imagePath: string) {
+        this.viewport.innerHTML = ""; // Clear existing leaves
+        this.world = document.createElement("div");
+        this.world.className = "leaf-scene";
+        this.viewport.appendChild(this.world);
+
         for (let i = 0; i < this.options.numLeaves; i++) {
           const leaf: Leaf = {
             el: document.createElement("div"),
@@ -154,34 +181,40 @@ const FallingLeaves: React.FC = () => {
             xSpeedVariation: 0,
             ySpeed: 0,
           };
-          this._resetLeaf(leaf, currentSeasonImagePath);
+          this._resetLeaf(leaf, imagePath);
           this.leaves.push(leaf);
           this.world.appendChild(leaf.el);
         }
-
-        this.world.className = "leaf-scene";
-        this.viewport.appendChild(this.world);
-        this.world.style.perspective = "400px";
-
-        window.onresize = () => {
-          this.width = this.viewport.offsetWidth;
-          this.height = this.viewport.offsetHeight;
-        };
       }
 
       render() {
         this._updateWind();
         this.leaves.forEach((leaf) => this._updateLeaf(leaf));
         this.timer++;
-        requestAnimationFrame(this.render.bind(this));
+        this.animationFrameId = requestAnimationFrame(this.render.bind(this));
+      }
+
+      destroy() {
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+        }
+        this.viewport.innerHTML = ""; // Clear all leaves
       }
     }
 
+    let leaves: LeafScene | null = null;
+
     if (containerRef.current) {
-      const leaves = new LeafScene(containerRef.current);
+      leaves = new LeafScene(containerRef.current);
       leaves.init(currentSeasonImagePath);
       leaves.render();
     }
+
+    return () => {
+      if (leaves) {
+        leaves.destroy(); // Cleanup on season change
+      }
+    };
   }, [season, currentSeasonImagePath]);
 
   return <div ref={containerRef} className="falling-leaves absolute"></div>;

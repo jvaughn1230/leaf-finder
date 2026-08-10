@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { useSeason } from "@/app/context/SeasonContext";
 
 const SeasonalGradient = ({ children }: { children: React.ReactNode }) => {

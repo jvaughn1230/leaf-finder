@@ -1,4 +1,4 @@
-import NearbyParks from "@/components/NearbyParks.client";
+import NearbyParks from "@/components/parks/local/NearbyParks.client";
 
 export default function Home() {
   <link rel="icon" href="/favicon.ico" sizes="any" />;

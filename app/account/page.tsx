@@ -1,5 +1,4 @@
-import React from "react";
-import FavoriteParks from "@/components/FavoriteParks.client";
+import FavoriteParks from "@/components/account/FavoriteParks.client";
 
 const page: React.FC = () => {
   return (

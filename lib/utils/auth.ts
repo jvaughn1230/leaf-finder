@@ -3,6 +3,12 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 const JWT_SECRET = process.env.JWT_SECRET;
+console.log("here: ", JWT_SECRET);
+
+if (!JWT_SECRET) {
+  console.log("Missing");
+  throw new Error("JWT_SECRET  is not defined");
+}
 
 // Hash the password
 export async function hashPassword(password: string) {
@@ -29,15 +35,20 @@ export function verifyToken(token: string) {
   return jwt.verify(token, JWT_SECRET);
 }
 
-//Get Token
+// Get Token From Cookie
 
 export function getTokenFromCookies() {
-  const cookieStore = cookies();
-  const token = cookieStore.get("jwt")?.value;
-
-  if (!token) {
-    throw new Error("Authorization failed");
-  }
-
+  const token = cookies().get("jwt")?.value;
   return token;
 }
+// verify auth for front end
+export const verifyAuth = async (): Promise<boolean> => {
+  try {
+    const response = await fetch("/api/auth/status");
+    const data = await response.json();
+    return data.loggedIn;
+  } catch (error) {
+    console.error("Error checking auth status:", error);
+    return false;
+  }
+};
