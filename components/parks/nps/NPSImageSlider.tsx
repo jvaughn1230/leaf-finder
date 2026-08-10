@@ -1,14 +1,13 @@
 "use client";
 import { useCallback } from "react";
 import Image from "next/image";
-import { ImageType } from "@/types/types";
+import { NPSImageType } from "@/types/parkTypes";
 import useEmblaCarousel from "embla-carousel-react";
 
-type Props = { images: ImageType[] };
+type Props = { images: NPSImageType[] };
 
 const NPSImageSlider = (props: Props) => {
   const { images } = props;
-  //   passs
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const scrollPrev = useCallback(() => {

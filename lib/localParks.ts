@@ -16,7 +16,7 @@ const transformLocalParkData = (
 export const fetchLocalParks = async (longLat: string, limit: number) => {
   try {
     const response = await fetch(
-      `https://api.mapbox.com/search/searchbox/v1/forward?q=park&poi_category=park,outdoors&proximity=${longLat}&limit=6&access_token=${process.env.MAPBOX_API_KEY}`
+      `https://api.mapbox.com/search/searchbox/v1/forward?q=park&poi_category=park,outdoors&proximity=${longLat}&limit=${limit}&access_token=${process.env.MAPBOX_API_KEY}`
     );
 
     const data = await response.json();

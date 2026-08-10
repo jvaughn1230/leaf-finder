@@ -24,6 +24,13 @@ export async function GET(request: NextRequest) {
     // token check
     const token = getTokenFromCookies();
 
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const decoded = verifyToken(token) as { userId: string };
     const userId = decoded.userId;
 
@@ -68,6 +75,13 @@ export async function POST(request: NextRequest) {
   try {
     // token check
     const token = getTokenFromCookies();
+
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Authentication required" },
+        { status: 401 }
+      );
+    }
 
     const decoded = verifyToken(token) as { userId: string };
     const userId = decoded.userId;

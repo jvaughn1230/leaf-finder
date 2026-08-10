@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { LocalParkType, NPSParkType } from "@/types/types";
 
 type FavoriteParksProps = {
   type: "nps" | "local";
+};
+
+type parkType = {
+  name: string;
+  _id: number;
 };
 
 const FavoriteParks: React.FC<FavoriteParksProps> = ({ type }) => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-
-  const ParkType = type === "nps" ? NPSParkType : LocalParkType;
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -53,7 +55,7 @@ const FavoriteParks: React.FC<FavoriteParksProps> = ({ type }) => {
         </h2>
         <ul>
           {favorites.length > 0 ? (
-            favorites.map((park) => (
+            favorites.map((park: parkType) => (
               <li key={park._id}>
                 <h3>{park.name}</h3>
               </li>

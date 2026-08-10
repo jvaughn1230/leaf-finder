@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Card from "@/components/Card.client";
+import Card from "../Card.client";
 import { NPSParkType } from "@/types/parkTypes";
 
 const NPSParks = ({ state }: { state: string }) => {
@@ -50,10 +50,10 @@ const NPSParks = ({ state }: { state: string }) => {
           next={fetchMoreParks}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
-          endMessage={<p>No more parks to show</p>}
+          endMessage={null}
           className="scrollbar-hide"
         >
-          <div className="card-container">
+          <div className="cards-container">
             {parks.map((park) => (
               <Card
                 key={park.parkCode}

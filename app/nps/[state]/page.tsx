@@ -1,6 +1,5 @@
-import React from "react";
 import { stateArray } from "@/lib/states";
-import NPSParks from "@/components/NPSParks";
+import NPSParks from "@/components/parks/nps/NPSParks";
 
 type StateParksPageProps = {
   params: { state: string };
