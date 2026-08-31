@@ -2,6 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import FormInput from "./FormInput.client";
 import FormButton from "./FormButton.client";
 
@@ -134,6 +135,12 @@ const RegisterForm = () => {
           loadingText="Registering..."
         />
       </form>
+      <p className="mt-4 text-center text-sm text-gray-600">
+        Already have an account?{" "}
+        <Link href="/auth/login" className="text-blue-600 hover:underline">
+          Log in
+        </Link>
+      </p>
       {message && <p className="mt-4 text-center text-red-500">{message}</p>}
     </div>
   );

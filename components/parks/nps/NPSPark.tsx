@@ -1,54 +1,28 @@
-"use client";
-import { useEffect, useState } from "react";
 import { TransformedNPSParkType } from "@/types/parkTypes";
 import NPSParkDetailsCard from "./NPSParkDetailsCard";
 import EmblaCarousel from "@/components/carousel/EmblaCarousel";
 import AddToFavorites from "../AddToFavorites";
 
-const NPSPark = ({ parkCode }: { parkCode: string }) => {
-  const [park, setPark] = useState<TransformedNPSParkType>();
-
-  useEffect(() => {
-    async function fetchNPSPark() {
-      if (parkCode) {
-        try {
-          const response = await fetch(`/api/getNPSPark?parkCode=${parkCode}`);
-          const parkData = await response.json();
-
-          if (!parkData) {
-            console.error("No park data found");
-            return;
-          }
-
-          setPark(parkData);
-        } catch (error) {
-          console.error("Error fetching NPS park", error);
-        }
-      }
-    }
-
-    fetchNPSPark();
-  }, [parkCode]);
-
+const NPSPark = ({ park }: { park: TransformedNPSParkType }) => {
   const parkDetails = [
     {
       name: "LOCATION",
-      data: park?.address,
+      data: park.address,
       isButton: false,
     },
     {
       name: "EMAIL",
-      data: park?.email,
+      data: park.email,
       isButton: false,
     },
     {
       name: "PHONE",
-      data: park?.phone,
+      data: park.phone,
       isButton: false,
     },
     {
       name: "Learn More",
-      data: park?.url,
+      data: park.url,
       isButton: true,
     },
   ];
@@ -57,17 +31,17 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
     <div>
       {/* header image */}
       <div
-        className={`flex flex-col gap-4 items-center justify-center h-[80vh]  bg-cover bg-center`}
+        className="flex flex-col gap-4 items-center justify-center h-[80vh] bg-cover bg-center"
         style={{
-          backgroundImage: `url(${park?.images[0].url})`,
+          backgroundImage: `url(${park.images[0]?.url ?? ""})`,
         }}
       >
         <div className="mb-2 bg-white p-2 rounded-md bg-opacity-50">
-          <h2 className="page-header text-black ">{park?.fullName}</h2>
-          <h3 className="sub-header text-black">{park?.designation}</h3>
+          <h2 className="page-header text-black">{park.fullName}</h2>
+          <h3 className="sub-header text-black">{park.designation}</h3>
         </div>
 
-        <AddToFavorites type="nps" parkId={parkCode} />
+        <AddToFavorites type="nps" parkId={park.parkCode} />
       </div>
 
       {/* Park Info */}
@@ -96,7 +70,7 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
               </h1>
             </div>
             <div className="lg:w-3/4">
-              <p className="text-white font-bold">{park?.description}</p>
+              <p className="text-white font-bold">{park.description}</p>
             </div>
           </div>
 
@@ -107,7 +81,7 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
               </h1>
             </div>
             <div className="lg:w-3/4">
-              <p className="text-white font-bold">{park?.weatherInfo}</p>
+              <p className="text-white font-bold">{park.weatherInfo}</p>
             </div>
           </div>
         </div>
@@ -115,7 +89,7 @@ const NPSPark = ({ parkCode }: { parkCode: string }) => {
 
       {/* Image Section */}
       <div className="py-8 px-8">
-        <EmblaCarousel images={park?.images ?? []} />
+        <EmblaCarousel images={park.images ?? []} />
       </div>
     </div>
   );
