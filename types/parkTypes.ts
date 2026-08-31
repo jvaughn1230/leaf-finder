@@ -23,7 +23,7 @@ export type TransformedNPSParkType = {
   url: string;
   email: string;
   phone: string;
-  address: string;
+  address: string | string[];
 };
 
 type NPSAddressType = {

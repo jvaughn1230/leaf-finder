@@ -4,7 +4,9 @@ import { useSeason } from "@/app/context/SeasonContext";
 const SeasonalGradient = ({ children }: { children: React.ReactNode }) => {
   const { season } = useSeason();
 
-  return <div className={`${season}-gradient`}>{children}</div>;
+  return (
+    <div className={`${season}-gradient min-h-screen flex-1`}>{children}</div>
+  );
 };
 
 export default SeasonalGradient;

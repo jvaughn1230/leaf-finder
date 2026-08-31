@@ -11,7 +11,7 @@
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    @apply bg-[50%]  h-full;
+    @apply bg-[50%] min-h-full;
   }
 
   a {
@@ -131,6 +131,14 @@ scrollbar-hide {
 }
 
 /* Seasons */
+.fall-gradient,
+.spring-gradient,
+.summer-gradient,
+.winter-gradient {
+  min-height: 100%;
+  width: 100%;
+}
+
 .fall-gradient {
   background-image: linear-gradient(
     to right,
@@ -139,8 +147,6 @@ scrollbar-hide {
     #fde047,
     #f4a261
   );
-  min-height: 100vh;
-  width: 100%;
 }
 
 .spring-gradient {
@@ -151,8 +157,6 @@ scrollbar-hide {
     #ffedd5,
     #ffb6c1
   );
-  min-height: 100vh;
-  width: 100%;
 }
 
 .summer-gradient {
@@ -163,8 +167,6 @@ scrollbar-hide {
     #facc15,
     #ff8c00
   );
-  min-height: 100vh;
-  width: 100%;
 }
 
 .winter-gradient {
@@ -175,6 +177,4 @@ scrollbar-hide {
     #e0f2fe,
     #ffffff
   );
-  min-height: 100vh;
-  width: 100%;
 }

@@ -1,10 +1,10 @@
-import React from "react";
+import { notFound } from "next/navigation";
 import { stateArray } from "@/lib/states";
-import { fetchNPSByState } from "@/lib/NPSParks";
+import { fetchNPSByState, fetchNPSPark } from "@/lib/NPSParks";
 import NPSPark from "@/components/parks/nps/NPSPark";
 
-type parksPageProps = {
-  params: { state: string; parkCode: string };
+type ParksPageProps = {
+  params: { parkCode: string };
 };
 
 export async function generateStaticParams() {
@@ -12,12 +12,11 @@ export async function generateStaticParams() {
     state: state.abbreviation.toLowerCase(),
   }));
 
-  let allParams: { state: string; parkCode: string }[] = [];
+  let allParams: { parkCode: string }[] = [];
 
   for (const state of states) {
     const parks = await fetchNPSByState(state.state);
-    const stateParams = parks.map((park: { parkCode: string }) => ({
-      state: state.state.toLowerCase(),
+    const stateParams = parks.map((park) => ({
       parkCode: park.parkCode,
     }));
 
@@ -27,10 +26,16 @@ export async function generateStaticParams() {
   return allParams;
 }
 
-const NPSParkPage = ({ params }: parksPageProps) => {
+const NPSParkPage = async ({ params }: ParksPageProps) => {
+  const park = await fetchNPSPark(params.parkCode);
+
+  if (!park) {
+    notFound();
+  }
+
   return (
     <div>
-      <NPSPark parkCode={params.parkCode} />
+      <NPSPark park={park} />
     </div>
   );
 };

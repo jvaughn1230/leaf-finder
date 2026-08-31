@@ -1,5 +1,8 @@
 import { MapboxType } from "@/types/types";
 
+const MAPBOX_REVALIDATE_SECONDS = 60 * 60; // 1 hour
+const UNSPLASH_REVALIDATE_SECONDS = 60 * 60 * 24; // 24 hours
+
 const transformLocalParkData = (
   idx: number,
   result: MapboxType,
@@ -15,12 +18,15 @@ const transformLocalParkData = (
 
 export const fetchLocalParks = async (longLat: string, limit: number) => {
   try {
-    const response = await fetch(
-      `https://api.mapbox.com/search/searchbox/v1/forward?q=park&poi_category=park,outdoors&proximity=${longLat}&limit=${limit}&access_token=${process.env.MAPBOX_API_KEY}`
-    );
+    const [response, photos] = await Promise.all([
+      fetch(
+        `https://api.mapbox.com/search/searchbox/v1/forward?q=park&poi_category=park,outdoors&proximity=${longLat}&limit=${limit}&access_token=${process.env.MAPBOX_API_KEY}`,
+        { next: { revalidate: MAPBOX_REVALIDATE_SECONDS } }
+      ),
+      getListOfParkPhotos(),
+    ]);
 
     const data = await response.json();
-    const photos = await getListOfParkPhotos();
     const parks = data?.features.map((result: MapboxType, idx: number) => {
       return transformLocalParkData(idx, result, photos);
     });
@@ -32,31 +38,36 @@ export const fetchLocalParks = async (longLat: string, limit: number) => {
 
 export const fetchLocalPark = async (id: string) => {
   try {
-    const response = await fetch(
-      `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?session_token=1&access_token=${process.env.MAPBOX_API_KEY}`
-    );
+    const [response, photos] = await Promise.all([
+      fetch(
+        `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?session_token=1&access_token=${process.env.MAPBOX_API_KEY}`,
+        { next: { revalidate: MAPBOX_REVALIDATE_SECONDS } }
+      ),
+      getListOfParkPhotos(),
+    ]);
     const data = await response.json();
-    const photos = await getListOfParkPhotos();
 
-    const transformedData = transformLocalParkData(0, data.features[0], photos);
+    if (!data?.features?.[0]) return undefined;
 
-    return transformedData;
+    return transformLocalParkData(0, data.features[0], photos);
   } catch (error) {
     console.error("Error fetching park: ", error);
   }
 };
 
-const getListOfParkPhotos = async () => {
+const getListOfParkPhotos = async (): Promise<string[]> => {
   try {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query="green park"&page=1&perPage=10&content_filter=high&orientation=landscape`
+      `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query="green park"&page=1&perPage=10&content_filter=high&orientation=landscape`,
+      { next: { revalidate: UNSPLASH_REVALIDATE_SECONDS } }
     );
     const photos = await response.json();
     const results = photos?.results || [];
-    return results?.map(
-      (result: { urls: { small: string[] } }) => result.urls["small"]
+    return results.map(
+      (result: { urls: { small: string } }) => result.urls.small
     );
   } catch (error) {
     console.error("Error retrieving a photo", error);
+    return [];
   }
 };
